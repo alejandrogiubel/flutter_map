@@ -96,6 +96,13 @@ class FlutterMapState extends MapGestureMixin
       RawGestureDetector scaleGestureDetector({required Widget child}) =>
           RawGestureDetector(
             gestures: <Type, GestureRecognizerFactory>{
+              EagerGestureRecognizer:
+              GestureRecognizerFactoryWithHandlers<EagerGestureRecognizer>(
+                    () => EagerGestureRecognizer(),
+                    (EagerGestureRecognizer instance) {
+                  scaleGestureTeam.captain = instance;
+                  instance.team ??= scaleGestureTeam;
+                },),
               ScaleGestureRecognizer:
                   GestureRecognizerFactoryWithHandlers<ScaleGestureRecognizer>(
                       () => ScaleGestureRecognizer(),
@@ -107,23 +114,23 @@ class FlutterMapState extends MapGestureMixin
                   ..onUpdate = handleScaleUpdate
                   ..onEnd = handleScaleEnd;
               }),
-              VerticalDragGestureRecognizer:
-                  GestureRecognizerFactoryWithHandlers<
-                          VerticalDragGestureRecognizer>(
-                      () => VerticalDragGestureRecognizer(),
-                      (VerticalDragGestureRecognizer instance) {
-                instance.team ??= scaleGestureTeam;
-                // these empty lambdas are necessary to activate this gesture recognizer
-                instance.onUpdate = (_) {};
-              }),
-              HorizontalDragGestureRecognizer:
-                  GestureRecognizerFactoryWithHandlers<
-                          HorizontalDragGestureRecognizer>(
-                      () => HorizontalDragGestureRecognizer(),
-                      (HorizontalDragGestureRecognizer instance) {
-                instance.team ??= scaleGestureTeam;
-                instance.onUpdate = (_) {};
-              })
+              // VerticalDragGestureRecognizer:
+              //     GestureRecognizerFactoryWithHandlers<
+              //             VerticalDragGestureRecognizer>(
+              //         () => VerticalDragGestureRecognizer(),
+              //         (VerticalDragGestureRecognizer instance) {
+              //   instance.team ??= scaleGestureTeam;
+              //   // these empty lambdas are necessary to activate this gesture recognizer
+              //   instance.onUpdate = (_) {};
+              // }),
+              // HorizontalDragGestureRecognizer:
+              //     GestureRecognizerFactoryWithHandlers<
+              //             HorizontalDragGestureRecognizer>(
+              //         () => HorizontalDragGestureRecognizer(),
+              //         (HorizontalDragGestureRecognizer instance) {
+              //   instance.team ??= scaleGestureTeam;
+              //   instance.onUpdate = (_) {};
+              // })
             },
             child: child,
           );

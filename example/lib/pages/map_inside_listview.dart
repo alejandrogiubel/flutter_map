@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong2/latlong.dart';
@@ -24,6 +25,7 @@ class MapInsideListViewPage extends StatelessWidget {
               height: 300,
               child: FlutterMap(
                 options: MapOptions(
+                  allowPanningOnScrollingParent: true,
                   center: LatLng(51.5, -0.09),
                   zoom: 5.0,
                   plugins: [
